@@ -32,9 +32,27 @@ img = Image.open("new_sample.png")
 if img.mode != 'RGB':
     img = img.convert('RGB')
 
-white = (255, 255, 255)
-red = (255, 0, 0)
 
-# Process starting from top-left corner
-img = flood_fill(img, (0, 0), red)
+
+def check_if_any_white(img):
+    width, height = img.size
+    img_array = np.array(img)
+    white = np.array([255, 255, 255])
+    
+    for x in range(width):
+        for y in range(height):
+            if np.array_equal(img_array[y, x], white):
+                return True, x, y
+                
+    return False, None, None
+
+
+green_shade = 1
+green_gradient = 40
+is_still_white, x, y = check_if_any_white(img)
+while is_still_white:
+    img = flood_fill(img, (x, y), (0, 255 - green_gradient * green_shade, 0))
+    green_shade += 1
+    is_still_white, x, y = check_if_any_white(img)
+    
 img.save('new_sample2.png')
