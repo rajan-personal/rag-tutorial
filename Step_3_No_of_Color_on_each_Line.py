@@ -48,8 +48,14 @@ def analyze_image(img_path, output_path):
         color_count = count_colors_along_line(img, center, end)
         results.append((angle, color_count))
 
-    for angle, count in results:
-        print(f"Angle {angle}°: {count} colors")
+    # for angle, count in results:
+    #     print(f"Angle {angle}°: {count} colors")
+
+    # if any angle has more or less then 6 colors print Error
+    if any(count != 6 for _, count in results):
+        print("Failed")
+    else:
+        print("Passed")
 
     draw_img.save(output_path)
 

@@ -1,7 +1,7 @@
 from PIL import Image
 from io import BytesIO
 
-img = Image.open("new_sample.png")
+img = Image.open("Test_Sample/pass.png")
 bw_img = img.convert('L')
 
 THRESHOLD = 90
