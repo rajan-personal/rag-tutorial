@@ -47,12 +47,12 @@ def check_if_any_white(img):
     return False, None, None
 
 
-green_shade = 1
+green_shade = 0
 green_gradient = 40
 is_still_white, x, y = check_if_any_white(img)
 while is_still_white:
-    img = flood_fill(img, (x, y), (0, 255 - green_gradient * green_shade, 0))
     green_shade += 1
+    img = flood_fill(img, (x, y), (0, 255 - green_gradient * green_shade, 0))
     is_still_white, x, y = check_if_any_white(img)
     
 img.save('new_sample2.png')
