@@ -53,9 +53,9 @@ def analyze_image(img_path, output_path):
 
     # if any angle has more or less then 6 colors print Error
     if any(count != 6 for _, count in results):
-        print("Failed")
+        print("Result Failed")
     else:
-        print("Passed")
+        print("Result Passed")
 
     draw_img.save(output_path)
 
