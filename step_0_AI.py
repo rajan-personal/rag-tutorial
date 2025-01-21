@@ -5,6 +5,10 @@ from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
 import time
 import os
 import warnings
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Suppress warnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -171,7 +175,7 @@ def main(image_path, prompts):
 
 if __name__ == "__main__":
     # Example usage
-    filename = "Test_Sample/pass.png"
+    filename = os.getenv('STEP_0_FILENAME', 'Test_Sample/pass.png')  # Use environment variable with fallback
     prompts = ["black color", "squares"]
     
     # Load original image once

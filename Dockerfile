@@ -11,13 +11,17 @@ RUN mkdir -p /root/.cache/huggingface
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-COPY step_0_AI.py .
+# Copy all step files and the test sample directory
+COPY step_*.py .
 COPY Test_Sample ./Test_Sample/
+COPY run_steps.sh .
+
+# Make the shell script executable
+RUN chmod +x run_steps.sh
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV HF_HOME=/root/.cache/huggingface
 
-# Run the test script
-CMD ["python", "step_0_AI.py"]
+# Run all steps using the shell script
+CMD ["./run_steps.sh"]
