@@ -176,6 +176,9 @@ def main(image_path, prompts):
 if __name__ == "__main__":
     # Example usage
     filename = os.getenv('STEP_0_FILENAME', 'Test_Sample/pass.png')  # Use environment variable with fallback
+    print(f"Using filename: {filename}")
+    print(f"File exists: {os.path.exists(filename)}")
+    print(f"Working directory: {os.getcwd()}")
     prompts = ["black color", "squares"]
     
     # Load original image once

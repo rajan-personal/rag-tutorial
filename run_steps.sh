@@ -1,4 +1,7 @@
 #!/bin/bash
+set -a
+source .env
+set +a
 python step_0_AI.py
 python step_1_convert_B\&W.py
 python step_2_Fill_color.py
