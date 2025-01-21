@@ -123,6 +123,37 @@ def process_segmentation_mask(mask, threshold=70):
     boundaries = find_boundaries(bw_img)
     return bw_img, boundaries
 
+def crop_square_region(image, boundaries, padding=10):
+    """
+    Crop a square region from the image based on boundaries
+    Args:
+        image: PIL Image to crop
+        boundaries: Dictionary containing left, right, top, bottom coordinates
+        padding: Optional padding around the region (default: 10 pixels)
+    Returns:
+        Cropped PIL Image
+    """
+    left = max(0, boundaries['left'] - padding)
+    right = min(image.width, boundaries['right'] + padding)
+    top = max(0, boundaries['top'] - padding)
+    bottom = min(image.height, boundaries['bottom'] + padding)
+    
+    # Make the crop region square by taking the larger dimension
+    width = right - left
+    height = bottom - top
+    max_dim = max(width, height)
+    
+    # Adjust coordinates to make a square while keeping the region centered
+    center_x = (left + right) // 2
+    center_y = (top + bottom) // 2
+    
+    left = max(0, center_x - max_dim // 2)
+    right = min(image.width, center_x + max_dim // 2)
+    top = max(0, center_y - max_dim // 2)
+    bottom = min(image.height, center_y + max_dim // 2)
+    
+    return image.crop((left, top, right, bottom))
+
 def main(image_path, prompts):
     """
     Main function to process image and get segmentation masks
@@ -142,6 +173,9 @@ if __name__ == "__main__":
     # Example usage
     filename = "Test_Sample/pass.png"
     prompts = ["black color", "squares"]
+    
+    # Load original image once
+    original_image = load_image(filename)
     masks = main(filename, prompts)
     
     # Process each mask
@@ -153,3 +187,9 @@ if __name__ == "__main__":
         print(f"Top most white pixel: y = {boundaries['top']}")
         print(f"Bottom most white pixel: y = {boundaries['bottom']}")
         print(f"Center point: x = {boundaries['center'][0]}, y = {boundaries['center'][1]}")
+        
+        # Crop and save the detected region
+        cropped_img = crop_square_region(original_image, boundaries)
+        output_filename = f"processed_0_{prompts[i].replace(' ', '_')}.png"
+        cropped_img.save(output_filename)
+        print(f"Saved cropped image to: {output_filename}")

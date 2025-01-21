@@ -60,4 +60,4 @@ def analyze_image(img_path, output_path):
     draw_img.save(output_path)
 
 # Main execution
-analyze_image("colored.png", "Final_Result.png")
+analyze_image("processed_2_squares.png", "processed_3_squares.png")

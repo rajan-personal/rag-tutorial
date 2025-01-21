@@ -1,6 +1,6 @@
 from PIL import Image
 
-img = Image.open("Test_Sample/pass.png")
+img = Image.open("processed_0_squares.png")
 bw_img = img.convert('L')
 
 THRESHOLD = 90
@@ -11,4 +11,4 @@ for x in range(bw_img.width):
         else:
             bw_img.putpixel((x, y), 255)
             
-bw_img.save('black_and_white.png')
+bw_img.save('processed_1_squares.png')

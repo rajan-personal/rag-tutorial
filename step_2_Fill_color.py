@@ -50,4 +50,4 @@ def process_image(input_path, output_path):
     Image.fromarray(img_array).save(output_path)
 
 # Main execution
-process_image("black_and_white.png", "Colored.png")
+process_image("processed_1_squares.png", "processed_2_squares.png")
